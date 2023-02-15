@@ -20,3 +20,10 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
   toast.success('Item added to Cart');
 };
+
+// remove items from cart
+export const removeFromCart = (id) => (dispatch, getState) => {
+  dispatch(cartActions.setCartRemoveItem(id));
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+  toast.success('Item removed from the Cart');
+};
