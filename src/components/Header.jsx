@@ -1,8 +1,16 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutUser } from '../redux/actions/userAction';
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
+  const { userInfo } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const signoutHandler = () => {
+    dispatch(logoutUser());
+  };
 
   return (
     <>
@@ -23,7 +31,21 @@ const Header = () => {
               <span className="badge">{cartItems.length}</span>
             )}
           </Link>
-          <Link to="/signin">Sign In</Link>
+          {userInfo ? (
+            <div className="dropdown">
+              <Link style={{ textDecoration: 'underline' }} to="#">
+                <i className="fa fa-user"></i> {userInfo.name}{' '}
+                <i className="fa fa-caret-down"></i>
+              </Link>
+              <ul className="dropdown-content">
+                <Link to="#signout" onClick={signoutHandler}>
+                  Sign Out
+                </Link>
+              </ul>
+            </div>
+          ) : (
+            <Link to="/signin">Sign In</Link>
+          )}
         </div>
       </header>
     </>

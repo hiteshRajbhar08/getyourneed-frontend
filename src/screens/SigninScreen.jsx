@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+import { loginUser } from '../redux/actions/userAction';
 
 const SigninScreen = () => {
   const [email, setEmail] = useState('');
@@ -9,13 +12,30 @@ const SigninScreen = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const { userInfo, loading, error } = useSelector((state) => state.user);
+
+  const redirect = location.search ? location.search.split('=')[1] : '/';
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [userInfo, navigate, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();
 
     if (email.trim() === '') return toast.error('Email is required');
     if (password.trim() === '') return toast.error('Password is required');
+
+    dispatch(loginUser(email, password));
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div>
@@ -25,7 +45,7 @@ const SigninScreen = () => {
             Sign In
           </h1>
         </div>
-        {/* {error && <MessageBox variant="danger">{error}</MessageBox>} */}
+        {error && <Message variant="danger">{error}</Message>}
         <div>
           <label htmlFor="email">Email address</label>
           <input
