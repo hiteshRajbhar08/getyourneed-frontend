@@ -1,19 +1,21 @@
+import { Link } from 'react-router-dom';
+
 const Header = () => {
   return (
     <>
       <header className="row">
         <div>
-          <a
+          <Link
+            to="/"
             style={{ textDecoration: 'underline' }}
             className="brand"
-            href="index.html"
           >
             getyourneed.
-          </a>
+          </Link>
         </div>
         <div>
-          <a href="cart.html">Cart</a>
-          <a href="signin.html">Sign In</a>
+          <Link to="/cart">Cart</Link>
+          <Link to="/signin">Sign In</Link>
         </div>
       </header>
     </>

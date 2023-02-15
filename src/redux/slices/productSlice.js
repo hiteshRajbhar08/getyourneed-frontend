@@ -4,6 +4,7 @@ const productSlice = createSlice({
   name: 'comment',
   initialState: {
     products: [],
+    product: {},
     loading: false,
     error: null,
   },
@@ -13,6 +14,10 @@ const productSlice = createSlice({
     },
     setProducts: (state, action) => {
       state.products = action.payload;
+      state.loading = false;
+    },
+    setProduct: (state, action) => {
+      state.product = action.payload;
       state.loading = false;
     },
     setError: (state, action) => {
