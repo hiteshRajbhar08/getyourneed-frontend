@@ -3,6 +3,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
+import Toast from './utils/Toast';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         </main>
         <Footer />
       </div>
+      <Toast />
     </Router>
   );
 };
