@@ -71,8 +71,9 @@ export const registerUser = (name, email, password) => async (dispatch) => {
 
 // logout user
 export const logoutUser = () => async (dispatch) => {
-  dispatch(userActions.logout());
-  toast.success('Logout Successfull');
   localStorage.removeItem('userInfo');
   localStorage.removeItem('cartItems');
+  localStorage.removeItem('shippingAddress');
+  toast.success('Logout Successfull');
+  dispatch(userActions.logout());
 };
