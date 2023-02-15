@@ -1,7 +1,10 @@
 const Footer = () => {
   return (
     <>
-      <footer className="row center">All right reserved</footer>
+      <footer className="row center">
+        &copy; {new Date().getFullYear()} Get Your Need, Inc. All rights
+        reserved.
+      </footer>
     </>
   );
 };
