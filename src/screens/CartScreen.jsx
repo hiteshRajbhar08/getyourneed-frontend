@@ -1,10 +1,20 @@
+import { useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/actions/cartAction';
 
 const CartScreen = () => {
   const { id: productId } = useParams();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const qty = location.search ? Number(location.search.split('=')[1]) : 1;
+
+  useEffect(() => {
+    if (productId) {
+      dispatch(addToCart(productId, qty));
+    }
+  }, [dispatch, productId, qty]);
 
   return (
     <div>
