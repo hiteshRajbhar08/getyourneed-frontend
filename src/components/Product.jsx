@@ -1,6 +1,6 @@
 import Rating from './Rating';
 
-const Products = ({ product }) => {
+const Product = ({ product }) => {
   return (
     <div className="card">
       <a href={`/product/${product._id}`}>
@@ -19,4 +19,4 @@ const Products = ({ product }) => {
   );
 };
 
-export default Products;
+export default Product;

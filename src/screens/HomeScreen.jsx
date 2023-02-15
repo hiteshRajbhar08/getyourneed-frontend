@@ -1,4 +1,4 @@
-import Products from '../components/Products';
+import Product from '../components/Product';
 import data from '../data';
 
 const HomeScreen = () => {
@@ -6,7 +6,7 @@ const HomeScreen = () => {
     <div>
       <div className="row center">
         {data.products.map((product) => (
-          <Products key={product._id} product={product} />
+          <Product key={product._id} product={product} />
         ))}
       </div>
     </div>
