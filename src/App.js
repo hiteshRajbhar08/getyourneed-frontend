@@ -4,6 +4,7 @@ import Header from './components/Header';
 import CartScreen from './screens/CartScreen';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
+import RegisterScreen from './screens/RegisterScreen';
 import SigninScreen from './screens/SigninScreen';
 import Toast from './utils/Toast';
 
@@ -16,6 +17,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/signin" element={<SigninScreen />} />
+            <Route path="/register" element={<RegisterScreen />} />
             <Route path="/product/:id" element={<ProductScreen />} />
             <Route path="/cart" element={<CartScreen />} />
             <Route path="/cart/:id" element={<CartScreen />} />
