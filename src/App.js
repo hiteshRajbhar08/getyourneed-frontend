@@ -6,6 +6,7 @@ import PrivateRoute from './components/PrivateRoute';
 import CartScreen from './screens/CartScreen';
 import HomeScreen from './screens/HomeScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import OrderListScreen from './screens/OrderListScreen';
 import OrderScreen from './screens/OrderScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceorderScreen from './screens/PlaceorderScreen';
@@ -57,6 +58,14 @@ const App = () => {
               element={
                 <AdminRoute>
                   <ProductEditScreen />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/orderlist"
+              element={
+                <AdminRoute>
+                  <OrderListScreen />
                 </AdminRoute>
               }
             />

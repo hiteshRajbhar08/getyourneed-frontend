@@ -41,6 +41,10 @@ const orderSlice = createSlice({
       state.orders = action.payload;
       state.loading = false;
     },
+    setListAllOrders: (state, action) => {
+      state.orders = action.payload;
+      state.loading = false;
+    },
     setError: (state, action) => {
       state.error = action.payload;
       state.loading = false;
