@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import AdminRoute from './components/AdminRoute';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
@@ -8,6 +9,7 @@ import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import OrderScreen from './screens/OrderScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceorderScreen from './screens/PlaceorderScreen';
+import ProductListScreen from './screens/ProductListScreen';
 import ProductScreen from './screens/ProductScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import RegisterScreen from './screens/RegisterScreen';
@@ -39,6 +41,14 @@ const App = () => {
                 <PrivateRoute>
                   <ProfileScreen />
                 </PrivateRoute>
+              }
+            />
+            <Route
+              path="/productlist"
+              element={
+                <AdminRoute>
+                  <ProductListScreen />
+                </AdminRoute>
               }
             />
           </Routes>
