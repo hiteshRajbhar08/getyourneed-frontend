@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createProduct, listProducts } from '../redux/actions/productAction';
+import {
+  createProduct,
+  deleteProduct,
+  listProducts,
+} from '../redux/actions/productAction';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { productActions } from '../redux/slices/productSlice';
@@ -15,6 +19,7 @@ const ProductListScreen = () => {
     loading,
     error,
     createdProductSuccess: success,
+    deleteProductSuccess: deleteSuccess,
     createdProduct,
   } = useSelector((state) => state.product);
 
@@ -23,13 +28,19 @@ const ProductListScreen = () => {
       dispatch(productActions.setCreatedProductReset());
       navigate(`/product/${createdProduct._id}/edit`);
     }
+    if (deleteSuccess) {
+      dispatch(productActions.setDeleteProductReset());
+    }
     dispatch(listProducts());
-  }, [dispatch, createdProduct, navigate, success]);
+  }, [dispatch, createdProduct, navigate, success, deleteSuccess]);
 
   const createHandler = () => {
     dispatch(createProduct());
   };
-  const deleteHandler = () => {};
+
+  const deleteHandler = (productId) => {
+    dispatch(deleteProduct(productId));
+  };
 
   if (loading) {
     return <Loader />;
@@ -77,7 +88,7 @@ const ProductListScreen = () => {
                     <button
                       type="button"
                       className="small"
-                      onClick={() => deleteHandler(product)}
+                      onClick={() => deleteHandler(product._id)}
                     >
                       Delete
                     </button>
