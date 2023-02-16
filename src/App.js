@@ -3,6 +3,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import CartScreen from './screens/CartScreen';
 import HomeScreen from './screens/HomeScreen';
+import OrderScreen from './screens/OrderScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceorderScreen from './screens/PlaceorderScreen';
 import ProductScreen from './screens/ProductScreen';
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/payment" element={<PaymentMethodScreen />} />
             <Route path="/placeorder" element={<PlaceorderScreen />} />
             <Route path="/product/:id" element={<ProductScreen />} />
+            <Route path="/order/:id" element={<OrderScreen />} />
             <Route path="/cart" element={<CartScreen />} />
             <Route path="/cart/:id" element={<CartScreen />} />
           </Routes>
