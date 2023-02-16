@@ -5,6 +5,7 @@ import { detailsProduct, updateProduct } from '../redux/actions/productAction';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { productActions } from '../redux/slices/productSlice';
+import axios from 'axios';
 
 const ProductEditScreen = () => {
   const [name, setName] = useState('');
@@ -14,6 +15,7 @@ const ProductEditScreen = () => {
   const [countInStock, setCountInStock] = useState('');
   const [brand, setBrand] = useState('');
   const [description, setDescription] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -62,7 +64,28 @@ const ProductEditScreen = () => {
     dispatch(updateProduct(product));
   };
 
-  const uploadFileHandler = async (e) => {};
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+
+      const { data } = await axios.post('/api/upload', formData, config);
+
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
+  };
 
   if (loading) {
     return <Loader />;
@@ -116,6 +139,7 @@ const ProductEditScreen = () => {
                 label="Choose Image"
                 onChange={uploadFileHandler}
               ></input>
+              {uploading && <Loader />}
             </div>
             <div>
               <label htmlFor="category">Category</label>
