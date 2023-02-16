@@ -230,6 +230,11 @@ img.large {
   background-color: #ffe0e0;
 }
 
+.alert-success {
+  color: #20a046;
+  background-color: #fdf5f5;
+}
+
 .btn-home {
   background-color: #203040;
   color: #f8f8f8;
