@@ -195,3 +195,33 @@ export const logoutUser = () => async (dispatch) => {
   toast.success('Logout Successfull');
   dispatch(userActions.logout());
 };
+
+// delete user
+export const setToUpdateUser = (user) => async (dispatch, getState) => {
+  try {
+    dispatch(userActions.setLoading());
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getState().user.userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(`/api/users/${user._id}`, user, config);
+
+    dispatch(userActions.setAdminUserUpdate(data));
+    toast.success('User update successfull');
+  } catch (error) {
+    dispatch(
+      userActions.setError(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+          ? error.message
+          : 'An unexpected error has occured. Please try again later.'
+      )
+    );
+    toast.error(error.response.data.message);
+  }
+};

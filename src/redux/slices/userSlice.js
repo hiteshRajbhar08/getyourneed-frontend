@@ -14,6 +14,7 @@ const userSlice = createSlice({
     success: false,
     listUsers: [],
     deleteUserSuccess: false,
+    updateUserSuccess: false,
   },
   reducers: {
     setLoading: (state, action) => {
@@ -47,8 +48,17 @@ const userSlice = createSlice({
       state.success = true;
       state.loading = false;
     },
+    setAdminUserUpdate: (state, action) => {
+      state.updateUserSuccess = true;
+      state.loading = false;
+    },
+    setAdminUserUpdateReset: (state, action) => {
+      state.updateUserSuccess = false;
+      state.loading = false;
+    },
     setUserUpdateReset: (state, action) => {
-      state.success = false;
+      state.updateUserSuccess = false;
+      state.loading = false;
     },
     logout: (state, action) => {
       state.userInfo = null;
