@@ -2,7 +2,11 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { detailsOrder, payOrder } from '../redux/actions/orderAction';
+import {
+  deliverToPaid,
+  detailsOrder,
+  payOrder,
+} from '../redux/actions/orderAction';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import axios from 'axios';
@@ -21,6 +25,7 @@ const OrderScreen = () => {
     error: errorPay,
     success,
     loading: loadingPay,
+    orderToDeliveredSuccess,
   } = useSelector((state) => state.order);
   const { userInfo } = useSelector((state) => state.user);
 
@@ -41,8 +46,14 @@ const OrderScreen = () => {
       document.body.appendChild(script);
     };
 
-    if (!order._id || success || (order && order._id !== orderId)) {
+    if (
+      !order._id ||
+      success ||
+      orderToDeliveredSuccess ||
+      (order && order._id !== orderId)
+    ) {
       dispatch(orderActions.setOrderPayReset());
+      dispatch(orderActions.setOrderToDeliveredReset());
       dispatch(detailsOrder(orderId));
     } else {
       if (!order.isPaid) {
@@ -53,10 +64,23 @@ const OrderScreen = () => {
         }
       }
     }
-  }, [dispatch, orderId, navigate, order, sdkReady, userInfo, success]);
+  }, [
+    dispatch,
+    orderId,
+    navigate,
+    order,
+    sdkReady,
+    userInfo,
+    success,
+    orderToDeliveredSuccess,
+  ]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult));
+  };
+
+  const deliverHandler = () => {
+    dispatch(deliverToPaid(order._id));
   };
 
   if (loading) {
@@ -202,6 +226,17 @@ const OrderScreen = () => {
                       ></PayPalButton>
                     </>
                   )}
+                </li>
+              )}
+              {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                <li>
+                  <button
+                    type="button"
+                    className="primary block"
+                    onClick={deliverHandler}
+                  >
+                    Deliver Order
+                  </button>
                 </li>
               )}
             </ul>

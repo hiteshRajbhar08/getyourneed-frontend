@@ -9,6 +9,7 @@ const orderSlice = createSlice({
     loading: false,
     error: null,
     success: false,
+    orderToDeliveredSuccess: false,
   },
   reducers: {
     setLoading: (state, action) => {
@@ -22,6 +23,14 @@ const orderSlice = createSlice({
     setOrderReset: (state, action) => {
       state.order = {};
       state.success = false;
+    },
+    setOrderToDelivered: (state, action) => {
+      state.orderToDeliveredSuccess = true;
+      state.loading = false;
+    },
+    setOrderToDeliveredReset: (state, action) => {
+      state.orderToDeliveredSuccess = false;
+      state.loading = false;
     },
     setOrderDetails: (state, action) => {
       state.order = action.payload;

@@ -151,3 +151,35 @@ export const listAllOrders = () => async (dispatch, getState) => {
     toast.error(error.response.data.message);
   }
 };
+
+//  order deliver to paid
+export const deliverToPaid = (orderId) => async (dispatch, getState) => {
+  try {
+    dispatch(orderActions.setLoading());
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${getState().user.userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/orders/${orderId}/deliver`,
+      {},
+      config
+    );
+
+    dispatch(orderActions.setOrderToDelivered(data));
+  } catch (error) {
+    dispatch(
+      orderActions.setError(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+          ? error.message
+          : 'An unexpected error has occured. Please try again later.'
+      )
+    );
+    toast.error(error.response.data.message);
+  }
+};
