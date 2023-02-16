@@ -17,6 +17,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import SigninScreen from './screens/SigninScreen';
+import UserListScreen from './screens/UserListScreen';
 import Toast from './utils/Toast';
 
 const App = () => {
@@ -66,6 +67,14 @@ const App = () => {
               element={
                 <AdminRoute>
                   <OrderListScreen />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/userlist"
+              element={
+                <AdminRoute>
+                  <UserListScreen />
                 </AdminRoute>
               }
             />

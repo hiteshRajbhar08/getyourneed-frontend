@@ -12,6 +12,7 @@ const userSlice = createSlice({
     loading: false,
     error: null,
     success: false,
+    listUsers: [],
   },
   reducers: {
     setLoading: (state, action) => {
@@ -19,6 +20,10 @@ const userSlice = createSlice({
     },
     login: (state, action) => {
       state.userInfo = action.payload;
+      state.loading = false;
+    },
+    setListUsers: (state, action) => {
+      state.listUsers = action.payload;
       state.loading = false;
     },
     register: (state, action) => {
