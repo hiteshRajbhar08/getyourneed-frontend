@@ -13,6 +13,7 @@ const userSlice = createSlice({
     error: null,
     success: false,
     listUsers: [],
+    deleteUserSuccess: false,
   },
   reducers: {
     setLoading: (state, action) => {
@@ -24,6 +25,14 @@ const userSlice = createSlice({
     },
     setListUsers: (state, action) => {
       state.listUsers = action.payload;
+      state.loading = false;
+    },
+    setDeleteUser: (state, action) => {
+      state.deleteUserSuccess = true;
+      state.loading = false;
+    },
+    setDeleteReset: (state, action) => {
+      state.deleteUserSuccess = false;
       state.loading = false;
     },
     register: (state, action) => {

@@ -3,7 +3,8 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { listUsers } from '../redux/actions/userAction';
+import { userActions } from '../redux/slices/userSlice';
+import { deleteUser, listUsers } from '../redux/actions/userAction';
 
 const UserListScreen = () => {
   const navigate = useNavigate();
@@ -13,13 +14,19 @@ const UserListScreen = () => {
     listUsers: users,
     loading,
     error,
+    deleteUserSuccess,
   } = useSelector((state) => state.user);
 
   useEffect(() => {
+    if (deleteUserSuccess) {
+      dispatch(userActions.setDeleteReset());
+    }
     dispatch(listUsers());
-  }, [dispatch]);
+  }, [dispatch, deleteUserSuccess]);
 
-  const deleteHandler = (user) => {};
+  const deleteHandler = (userId) => {
+    dispatch(deleteUser(userId));
+  };
 
   if (loading) {
     return <Loader />;
@@ -61,7 +68,7 @@ const UserListScreen = () => {
                   <button
                     type="button"
                     className="small"
-                    onClick={() => deleteHandler(user)}
+                    onClick={() => deleteHandler(user._id)}
                   >
                     Delete
                   </button>

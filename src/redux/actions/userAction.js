@@ -158,6 +158,35 @@ export const listUsers = () => async (dispatch, getState) => {
   }
 };
 
+// delete user
+export const deleteUser = (userId) => async (dispatch, getState) => {
+  try {
+    dispatch(userActions.setLoading());
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${getState().user.userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.delete(`/api/users/${userId}`, config);
+
+    dispatch(userActions.setDeleteUser(data));
+    toast.success(data.message);
+  } catch (error) {
+    dispatch(
+      userActions.setError(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+          ? error.message
+          : 'An unexpected error has occured. Please try again later.'
+      )
+    );
+    toast.error(error.response.data.message);
+  }
+};
+
 // logout user
 export const logoutUser = () => async (dispatch) => {
   localStorage.removeItem('userInfo');
