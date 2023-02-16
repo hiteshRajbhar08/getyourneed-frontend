@@ -42,6 +42,9 @@ const Header = () => {
                   <Link to="/profile">User Profile</Link>
                 </li>
                 <li>
+                  <Link to="/orderhistory">Order History</Link>
+                </li>
+                <li>
                   <Link to="#signout" onClick={signoutHandler}>
                     Sign Out
                   </Link>

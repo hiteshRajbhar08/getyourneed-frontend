@@ -4,6 +4,7 @@ import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 import CartScreen from './screens/CartScreen';
 import HomeScreen from './screens/HomeScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import OrderScreen from './screens/OrderScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceorderScreen from './screens/PlaceorderScreen';
@@ -31,6 +32,7 @@ const App = () => {
             <Route path="/order/:id" element={<OrderScreen />} />
             <Route path="/cart" element={<CartScreen />} />
             <Route path="/cart/:id" element={<CartScreen />} />
+            <Route path="/orderhistory" element={<OrderHistoryScreen />} />
             <Route
               path="/profile"
               element={
