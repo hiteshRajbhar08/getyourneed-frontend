@@ -2,6 +2,10 @@ import CheckoutSteps from '../components/CheckoutSteps';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { orderActions } from '../redux/slices/orderSlice';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+import { createOrder } from '../redux/actions/orderAction';
 
 const PlaceorderScreen = () => {
   const cart = useSelector((state) => state.cart);
@@ -29,7 +33,36 @@ const PlaceorderScreen = () => {
     Number(taxPrice)
   ).toFixed(2);
 
-  const placeOrderHandler = () => {};
+  const dispatch = useDispatch();
+
+  const { order, loading, success, error } = useSelector(
+    (state) => state.order
+  );
+
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order._id}`);
+      dispatch(orderActions.setOrderReset());
+    }
+  }, [navigate, success, order, dispatch]);
+
+  const placeOrderHandler = () => {
+    const order = {
+      orderItems: cart.cartItems,
+      shippingAddress: cart.shippingAddress,
+      paymentMethod: cart.paymentMethod,
+      itemsPrice,
+      shippingPrice,
+      taxPrice,
+      totalPrice,
+    };
+
+    dispatch(createOrder(order));
+  };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div>
@@ -130,6 +163,7 @@ const PlaceorderScreen = () => {
                   Place Order
                 </button>
               </li>
+              {error && <Message variant="danger">{error}</Message>}
             </ul>
           </div>
         </div>
