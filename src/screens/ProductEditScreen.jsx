@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { detailsProduct } from '../redux/actions/productAction';
+import { detailsProduct, updateProduct } from '../redux/actions/productAction';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { productActions } from '../redux/slices/productSlice';
 
 const ProductEditScreen = () => {
   const [name, setName] = useState('');
@@ -19,10 +20,19 @@ const ProductEditScreen = () => {
 
   const { id: productId } = useParams();
 
-  const { product, loading, error } = useSelector((state) => state.product);
+  const {
+    product,
+    loading,
+    error,
+    updatedProductSuccess: success,
+  } = useSelector((state) => state.product);
 
   useEffect(() => {
-    if (!product || product._id !== productId) {
+    if (success) {
+      navigate('/productlist');
+    }
+    if (!product || product._id !== productId || success) {
+      dispatch(productActions.setUpdatedProductReset());
       dispatch(detailsProduct(productId));
     } else {
       setName(product.name);
@@ -33,10 +43,23 @@ const ProductEditScreen = () => {
       setBrand(product.brand);
       setDescription(product.description);
     }
-  }, [dispatch, productId, product]);
+  }, [dispatch, productId, product, navigate, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    const product = {
+      _id: productId,
+      name,
+      price,
+      image,
+      category,
+      brand,
+      countInStock,
+      description,
+    };
+
+    dispatch(updateProduct(product));
   };
 
   const uploadFileHandler = async (e) => {};
