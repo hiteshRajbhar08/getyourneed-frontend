@@ -8,8 +8,10 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     userInfo: userInfoFromStorage,
+    userDetails: {},
     loading: false,
     error: null,
+    success: false,
   },
   reducers: {
     setLoading: (state, action) => {
@@ -22,6 +24,17 @@ const userSlice = createSlice({
     register: (state, action) => {
       state.userInfo = action.payload;
       state.loading = false;
+    },
+    setUserDetails: (state, action) => {
+      state.userDetails = action.payload;
+      state.loading = false;
+    },
+    setUserUpdate: (state, action) => {
+      state.success = true;
+      state.loading = false;
+    },
+    setUserUpdateReset: (state, action) => {
+      state.success = false;
     },
     logout: (state, action) => {
       state.userInfo = null;

@@ -38,9 +38,14 @@ const Header = () => {
                 <i className="fa fa-caret-down"></i>
               </Link>
               <ul className="dropdown-content">
-                <Link to="#signout" onClick={signoutHandler}>
-                  Sign Out
-                </Link>
+                <li>
+                  <Link to="/profile">User Profile</Link>
+                </li>
+                <li>
+                  <Link to="#signout" onClick={signoutHandler}>
+                    Sign Out
+                  </Link>
+                </li>
               </ul>
             </div>
           ) : (
