@@ -9,6 +9,7 @@ import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import OrderScreen from './screens/OrderScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceorderScreen from './screens/PlaceorderScreen';
+import ProductEditScreen from './screens/ProductEditScreen';
 import ProductListScreen from './screens/ProductListScreen';
 import ProductScreen from './screens/ProductScreen';
 import ProfileScreen from './screens/ProfileScreen';
@@ -48,6 +49,14 @@ const App = () => {
               element={
                 <AdminRoute>
                   <ProductListScreen />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/product/:id/edit"
+              element={
+                <AdminRoute>
+                  <ProductEditScreen />
                 </AdminRoute>
               }
             />
