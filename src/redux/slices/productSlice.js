@@ -7,6 +7,7 @@ const productSlice = createSlice({
     product: {},
     createdProduct: {},
     createdProductSuccess: false,
+    createdProductReviewSuccess: false,
     updatedProduct: {},
     updatedProductSuccess: false,
     deleteProductSuccess: false,
@@ -42,6 +43,14 @@ const productSlice = createSlice({
     },
     setDeleteProductSuccess: (state, action) => {
       state.deleteProductSuccess = true;
+      state.loading = false;
+    },
+    setCreatedProductReviewSuccess: (state, action) => {
+      state.createdProductReviewSuccess = true;
+      state.loading = false;
+    },
+    setCreatedProductReviewSuccessReset: (state, action) => {
+      state.createdProductReviewSuccess = false;
       state.loading = false;
     },
     setUpdatedProductReset: (state, action) => {

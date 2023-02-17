@@ -78,6 +78,41 @@ export const createProduct = () => async (dispatch, getState) => {
   }
 };
 
+//  create  review
+export const createReview =
+  (productId, review) => async (dispatch, getState) => {
+    try {
+      dispatch(productActions.setLoading());
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${getState().user.userInfo.token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const { data } = await axios.post(
+        `/api/products/${productId}/reviews`,
+        review,
+        config
+      );
+
+      dispatch(productActions.setCreatedProductReviewSuccess(data.product));
+      toast.success(data.message);
+    } catch (error) {
+      dispatch(
+        productActions.setError(
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+            ? error.message
+            : 'An unexpected error has occured. Please try again later.'
+        )
+      );
+      toast.error(error.response.data.message);
+    }
+  };
+
 //  update  product
 export const updateProduct = (product) => async (dispatch, getState) => {
   try {
