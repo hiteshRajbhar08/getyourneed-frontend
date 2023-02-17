@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../redux/actions/userAction';
+import SearchBox from './SearchBox';
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -23,6 +24,9 @@ const Header = () => {
           >
             getyourneed.
           </Link>
+        </div>
+        <div>
+          <SearchBox />
         </div>
         <div>
           <Link to="/cart">
